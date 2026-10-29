@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav>
+    <h1>ExpenseTracker</h1>
+    <div class="nav-right">
+      <span id="user-name"></span>
+      <button class="btn-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
+      <button class="btn-add" onclick="openAddModal()">+ Add</button>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Summary Bar -->
+  <div class="summary-bar">
+    <div class="summary-card income-card">
+      <p class="summary-label">Total Income</p>
+      <p class="summary-value" id="total-income">₹0</p>
+    </div>
+    <div class="summary-card expense-card">
+      <p class="summary-label">Total Expense</p>
+      <p class="summary-value" id="total-expense">₹0</p>
+    </div>
+    <div class="summary-card balance-card">
+      <p class="summary-label">Balance</p>
+      <p class="summary-value" id="balance">₹0</p>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+
+    <!-- Left: Transactions -->
+    <div class="panel" id="transactions-panel">
+      <div class="panel-header">
+        <h2>Transactions</h2>
+      </div>
+      <div id="transaction-list"></div>
+    </div>
+
+    <!-- Right: Charts -->
+    <div class="panel" id="charts-panel">
+      <div class="panel-header">
+        <h2>Charts</h2>
+      </div>
+      <div class="chart-block">
+        <p class="chart-label">Income by category</p>
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <div class="chart-divider"></div>
+      <div class="chart-block">
+        <p class="chart-label">Expenses by category</p>
+        <canvas id="expenseChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add Modal -->
+  <div id="add-modal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Add Transaction</h2>
+        <button class="btn-close" onclick="closeAddModal()">✕</button>
+      </div>
+      <input type="text" id="title" placeholder="Title" />
+      <input type="number" id="amount" placeholder="Amount" />
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <input type="text" id="category" placeholder="Category (e.g. Food, Salary)" />
+      <input type="date" id="date" />
+      <button class="btn-submit" onclick="addTransaction()">Add Transaction</button>
+      <p id="form-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Edit Transaction</h2>
+        <button class="btn-close" onclick="closeModal()">✕</button>
+      </div>
+      <input type="text" id="edit-title" placeholder="Title" />
+      <input type="number" id="edit-amount" placeholder="Amount" />
+      <select id="edit-type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <input type="text" id="edit-category" placeholder="Category" />
+      <input type="date" id="edit-date" />
+      <button class="btn-submit" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/transactions.js"></script>
+</body>
+</html>
